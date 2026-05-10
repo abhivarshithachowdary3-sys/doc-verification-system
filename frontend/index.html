@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Document Verification System</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-icon">🔐</span>
+      <span class="brand-name">DocVerify<span class="brand-accent">AI</span></span>
+    </div>
+    <div class="status-badge" id="apiStatus">Connecting…</div>
+  </div>
+</header>
+
+<main class="main">
+  <section class="hero">
+    <h1>Smart Document Verification</h1>
+    <p class="hero-sub">Multi-agent AI pipeline · OCR · Fraud Detection · Blockchain Anchoring</p>
+  </section>
+
+  <div class="upload-card" id="uploadCard">
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-icon">📄</div>
+      <p class="drop-title">Drop your identity document here</p>
+      <p class="drop-sub">Supports Aadhaar · PAN · Passport · DL · Voter ID</p>
+      <label class="btn-primary" for="fileInput">Choose File</label>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+    </div>
+    <div class="preview-row" id="previewRow" style="display:none">
+      <img id="previewImg" alt="Preview">
+      <div class="file-info" id="fileInfo"></div>
+    </div>
+    <button class="btn-verify" id="verifyBtn" disabled>Verify Document →</button>
+  </div>
+
+  <div class="progress-card" id="progressCard" style="display:none">
+    <p class="progress-label">Running verification pipeline…</p>
+    <div class="pipeline-steps">
+      <div class="step" id="step-ocr"><span class="step-icon">🔍</span> OCR Extraction</div>
+      <div class="step" id="step-classify"><span class="step-icon">🏷️</span> Classification</div>
+      <div class="step" id="step-extract"><span class="step-icon">📋</span> Field Extraction</div>
+      <div class="step" id="step-fraud"><span class="step-icon">🚨</span> Fraud Detection</div>
+      <div class="step" id="step-blockchain"><span class="step-icon">⛓️</span> Blockchain Anchor</div>
+    </div>
+  </div>
+
+  <div class="result-card" id="resultCard" style="display:none">
+    <div class="result-header" id="resultHeader"></div>
+    <div class="result-grid">
+      <div class="result-section">
+        <h3>Extracted Fields</h3>
+        <div id="fieldsList"></div>
+      </div>
+      <div class="result-section">
+        <h3>Fraud Analysis</h3>
+        <div id="fraudSection"></div>
+      </div>
+      <div class="result-section">
+        <h3>Blockchain Record</h3>
+        <div id="blockchainSection"></div>
+      </div>
+      <div class="result-section">
+        <h3>Pipeline Scores</h3>
+        <div id="scoresSection"></div>
+      </div>
+    </div>
+    <button class="btn-secondary" id="resetBtn">Verify Another Document</button>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

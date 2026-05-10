@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    container_name: docverify_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./verification.db
+      - DEBUG=false
+      - TESSERACT_CMD=/usr/bin/tesseract
+      - FRAUD_SCORE_THRESHOLD=0.65
+    volumes:
+      - uploads_data:/app/uploads
+      - db_data:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: nginx:alpine
+    container_name: docverify_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ../frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  uploads_data:
+  db_data:
